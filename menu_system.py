@@ -17,7 +17,8 @@ default_msgs_menu = {
     "closing_program": "Closing the program...",
     "return_menu": "Return to the menu",
     "repeat_action": "Repeat the action",
-    "quit_program": "Exit"
+    "quit_program": "Exit",
+    "confirm_quit": "Do you really want to exit?"
 }
 
 class Menu:
@@ -25,7 +26,7 @@ class Menu:
         self.functions = functions
         self.msgs = msgs
 
-    def salir(self, msg=True):
+    def quit(self, msg=True):
         if msg == False:
             sys.exit()
         else:
@@ -33,10 +34,31 @@ class Menu:
             print(self.msgs["thanks_for_using"])
             print(self.msgs["closing_program"])
             sys.exit()
+            
+    def askExit(self, current_menu):
+        choose_exit = input("{} (y/n): ". format(self.msgs["confirm_quit"]))
+        
+        while (not((choose_exit == "y") or (choose_exit == "n") or (choose_exit == "Y") or (choose_exit == "N"))):
+            choose_exit = input("{}. {} (y/n): ". format(self.msgs["choopt_invalid"], self.msgs["confirm_quit"]))
+            
+        if ((choose_exit == "y") or (choose_exit == "Y")):
+            print(self.msgs["confirmation"])
+            self.quit(True)
+        elif ((choose_exit == "n") or (choose_exit == "N")):
+            print(self.msgs["confirmation"])
+            clear_console()
+            if current_menu == "root":
+                self.menu()
+            elif current_menu == "do_next_func":
+                self.do_next_func()
 
     def menu(self):
-        if not(self.salir in self.functions):
-            self.functions.append(self.salir)
+        def namedExit():
+            return self.askExit("root")
+        namedExit.__name__ = "Exit"
+
+        if not any(func.__name__ == namedExit.__name__ for func in self.functions):
+            self.functions.append(namedExit)
         
         makeLine(self.msgs["welcome"])
         print(self.msgs["welcome"])
@@ -105,6 +127,6 @@ class Menu:
                 self.functions[self.choose - 1]()
                 self.do_next_func()
             case 3:
-                self.salir()
+                self.askExit("root")
             case _:
                 print("Achievement: How did we get here?...")
