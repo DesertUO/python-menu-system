@@ -12,7 +12,7 @@ This is my first project. It’s a customizable command-line menu system for Pyt
 To set up the project locally, follow these steps:
 
 1. Clone the repository:
-   `git clone https://github.com/placeholder/placeholder.git`
+   `git clone https://github.com/DesertUO/python-menu-system.git`
 2. Navigate into the project directory:
    `cd python-menu-system`
 
