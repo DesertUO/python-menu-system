@@ -14,9 +14,18 @@ def option_three():
 # List of functions to be used as options in the menu
 functions = [option_one, option_two, option_three]
 
+# Creating a custom set of messages that will be shown to the user on the menu
+custom_messages_1 = mc.MenuMessages()
+custom_messages_1.welcome = "Bienvenido al programa! Usando 'custom_messages_1'"
+# And so on...
+
+# Using the default set of messages (default set is in English)
+custom_messages_2 = mc.defaultMsgs
+custom_messages_2.welcome = "Bienvenido al programa! Usando 'custom_messages_2'"
+
 # Defining the menu class and starting the menu interface
 def main():
-    menu_1 = mc.Menu(functions)
+    menu_1 = mc.Menu(functions, custom_messages_2)
     menu_1.menu()
 
 # I think you can nest menus, but I haven't tried it yet. It's something I plan to implement later.
