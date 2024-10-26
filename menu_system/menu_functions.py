@@ -95,10 +95,10 @@ class Menu:
         self.functions = functions
         self.msgs = msgs
 
-    def quit(self, msg=True):
+    def quit(self, msg: bool = True):
         if msg == False:
             sys.exit()
-        else:
+        elif msg == True:
             clear_console()
             print(self.msgs.thanks_for_using)
             print(self.msgs.closing_program)
@@ -113,6 +113,7 @@ class Menu:
         elif ((choose_exit == "n") or (choose_exit == "N")):
             print(self.msgs.confirmation)
             clear_console()
+
             if current_menu == "root":
                 self.menu()
             elif current_menu == "do_next_func":
